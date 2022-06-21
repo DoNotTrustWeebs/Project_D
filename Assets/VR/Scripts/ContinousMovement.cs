@@ -28,6 +28,7 @@ public class ContinousMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //The inputdevice object is called to be used later
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out inputAxis);
     }
@@ -43,7 +44,7 @@ public class ContinousMovement : MonoBehaviour
         
         character.Move(direction * Time.fixedDeltaTime * speed);
 
-        //gravity
+        //adds gravity to the VR-rig. it makes the player go down without going through the floor
         if (CheckIfGrounded())
             fallingSpeed = 0;
         else
@@ -53,6 +54,7 @@ public class ContinousMovement : MonoBehaviour
 
     void CapsuleFollowHeadset()
     {
+        //this makes the VR-rig move foward, backwards, etc. and makes the camera follow you
         character.height = rig.CameraInOriginSpaceHeight + additionalHeight;
         Vector3 capsuleCenter = transform.InverseTransformPoint(rig.Camera.transform.position);
         character.center = new Vector3(capsuleCenter.x, character.height/2 + character.skinWidth, capsuleCenter.z);

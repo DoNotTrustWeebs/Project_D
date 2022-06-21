@@ -25,6 +25,7 @@ public class SmoothTurnProvider : LocomotionProvider
 
     private void CheckForInput()
     {
+        //every frame the program checks if the player wants to turn
         foreach(XRController controller in controllers)
         {
             targetTurnAmount = CheckForTurn(controller);
@@ -36,6 +37,7 @@ public class SmoothTurnProvider : LocomotionProvider
 
     private void TrySmoothTurn()
     {
+        //calls the turning method with values from another method
         StartCoroutine(TurnRoutine(targetTurnAmount));
 
         targetTurnAmount = 0.0f;
@@ -43,6 +45,7 @@ public class SmoothTurnProvider : LocomotionProvider
 
     private IEnumerator TurnRoutine(float turnAmount)
     {
+        //makes the player turn for a certain amount of time
         float previousTurnChange = 0.0f;
         float elapsedTime = 0.0f;
 
@@ -67,6 +70,7 @@ public class SmoothTurnProvider : LocomotionProvider
 
     private float CheckForTurn(XRController controller)
     {
+        //checks if the player wants to turn
         if(controller.inputDevice.IsPressed(rightTurnButton, out bool rightPress))
         {
             if (rightPress)
